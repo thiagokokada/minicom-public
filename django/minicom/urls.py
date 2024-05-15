@@ -16,14 +16,17 @@ Including another URLconf
 
 from django.urls import include, path
 
-from minicom import api
+from minicom import api, views
 
 urlpatterns = [
     # Examples:
     # re_path(r'^$', 'minicom.views.home', name='home'),
     # re_path(r'^blog/', include('blog.urls')),
     # path('blog/', include('blog.urls')),
-
-    path('foo', api.verify),
-    path('bar', api.verify)
+    path("foo", api.verify),
+    path("bar", api.verify),
+    path("", views.IndexView.as_view(), name="index"),
+    path("<int:pk>/", views.DetailView.as_view(), name="detail"),
+    path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
+    path("<int:question_id>/vote/", views.vote, name="vote"),
 ]
